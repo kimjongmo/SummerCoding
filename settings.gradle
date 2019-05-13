@@ -1,0 +1,5 @@
+rootProject.name = 'todo'
+include 'common'
+include 'front'
+include 'api'
+
