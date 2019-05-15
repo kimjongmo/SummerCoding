@@ -24,7 +24,7 @@ public class UpdateTodoDTO {
     @Length(max = 300, message = "본문은 최대 300자까지만 가능합니다.")
     private String content;
 
-    @Pattern(regexp = "^[0-9]{4}+-[0-9]{2}+-[0-9]{2}+T[0-9]{2}+:[0-9]{2}+:[0-9]{2}", message = "올바르지 않은 형식입니다.")
+    @Pattern(regexp = "^[0-9]{4}+-[0-9]{2}+-[0-9]{2}+T[0-9]{2}+:[0-9]{2}",message = "올바르지 않은 형식입니다.")
     private String deadline;
 
     @Pattern(regexp = "^(대기중|완료)")

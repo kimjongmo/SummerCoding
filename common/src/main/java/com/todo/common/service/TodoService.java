@@ -1,5 +1,6 @@
 package com.todo.common.service;
 
+import com.todo.common.dto.CommonHeader;
 import com.todo.common.dto.TodoDTO;
 import com.todo.common.dto.UpdateTodoDTO;
 import com.todo.common.entity.Todo;
@@ -21,9 +22,13 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    public void save(TodoDTO todoDTO) {
+    public CommonHeader save(TodoDTO todoDTO) {
         Todo todo = todoDTO.toEntity();
-        this.todoRepository.save(todo);
+        todoRepository.save(todo);
+        if(todo.getId()!=null)
+            return new CommonHeader().setMessage("추가되었습니다.");
+        else
+            return new CommonHeader().setMessage("실패하였습니다.");
     }
 
     public Todo get(Long id) {

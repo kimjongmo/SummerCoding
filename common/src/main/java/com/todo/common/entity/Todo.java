@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 @Entity
 @Setter
 @Getter
-@ToString
+@ToString(callSuper = true)
 @Accessors(chain = true)
 public class Todo extends BaseEntity {
     private String title;

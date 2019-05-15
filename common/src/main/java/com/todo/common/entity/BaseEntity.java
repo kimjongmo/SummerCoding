@@ -13,16 +13,18 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@ToString
 @EntityListeners(AuditingEntityListener.class)
+@ToString
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @CreatedDate
     private LocalDateTime createdAt;
+
     @LastModifiedDate
     private LocalDateTime updatedAt;
 }
