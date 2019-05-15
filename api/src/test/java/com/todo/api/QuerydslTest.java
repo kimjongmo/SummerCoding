@@ -2,7 +2,6 @@ package com.todo.api;
 
 import com.todo.common.dto.SearchDTO;
 import com.todo.common.entity.Todo;
-import com.todo.common.repo.TodoRepository;
 import com.todo.common.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -27,15 +26,10 @@ public class QuerydslTest {
         //given
         String title = "할일2";
         String content = "내";
-//        String afterDate = "2019-05-14T14:00:00";
-        String beforeDate = "2019-05-15T16:00:00";
 
         SearchDTO dto = new SearchDTO();
         dto.setTitle(title);
         dto.setContent(content);
-        dto.setAfterDate(null);
-        dto.setBeforeDate(beforeDate);
-        dto.setStatus(null);
 
         //when
         List<Todo> result = searchService.search(dto);
