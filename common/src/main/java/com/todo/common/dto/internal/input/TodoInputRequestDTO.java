@@ -1,4 +1,4 @@
-package com.todo.common.dto;
+package com.todo.common.dto.internal.input;
 import com.todo.common.entity.Todo;
 import com.todo.common.status.TodoStatus;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @Getter
 @ToString
-public class TodoDTO {
+public class TodoInputRequestDTO {
     @NotEmpty(message = "제목을 입력해주세요")
     @Length(max = 100,message = "제목은 최대 100자까지만 가능합니다.")
     private String title;
@@ -26,7 +26,7 @@ public class TodoDTO {
     @Length(max = 300,message = "본문은 최대 300자까지만 가능합니다.")
     private String content;
 
-    @Pattern(regexp = "^([0-9]{4}+-[0-9]{2}+-[0-9]{2}+T[0-9]{2}+:[0-9]{2}|)",message = "올바르지 않은 형식입니다.")
+    @Pattern(regexp = "^([0-9]{4}+-[0-9]{2}+-[0-9]{2}+T[0-9]{2}+:[0-9]{2})",message = "올바르지 않은 형식입니다.")
     private String deadline;
 
     public Todo toEntity(){

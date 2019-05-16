@@ -1,4 +1,4 @@
-package com.todo.common.dto;
+package com.todo.common.dto.internal.update;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 @Getter
 @Setter
 @ToString
-public class UpdateTodoDTO {
+public class TodoUpdateRequestDTO {
     @NotNull(message = "ID 값은 필수입니다.")
     private Long id;
 
@@ -27,6 +27,5 @@ public class UpdateTodoDTO {
     @Pattern(regexp = "^[0-9]{4}+-[0-9]{2}+-[0-9]{2}+T[0-9]{2}+:[0-9]{2}",message = "올바르지 않은 형식입니다.")
     private String deadline;
 
-    @Pattern(regexp = "^(대기중|완료)")
-    private String status;
+
 }

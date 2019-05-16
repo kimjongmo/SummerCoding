@@ -1,6 +1,6 @@
 package com.todo.common.entity;
 
-import com.todo.common.dto.UpdateTodoDTO;
+import com.todo.common.dto.internal.update.TodoUpdateRequestDTO;
 import com.todo.common.status.TodoStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +26,7 @@ public class Todo extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private TodoStatus status;
 
-    public void update(UpdateTodoDTO dto) {
+    public void update(TodoUpdateRequestDTO dto) {
         if (!Strings.isEmpty(dto.getTitle()))
             this.title = dto.getTitle();
 
@@ -36,16 +36,5 @@ public class Todo extends BaseEntity {
         /* 데드라인 설정 */
         if (!Strings.isEmpty(dto.getDeadline()))
             this.deadline = LocalDateTime.parse(dto.getDeadline(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-
-        /* 상태 변경 */
-        if (!Strings.isEmpty(dto.getStatus())) {
-            TodoStatus[] array = TodoStatus.values();
-            for (TodoStatus todoStatus : array) {
-                if (todoStatus.getMessage().equals(dto.getStatus())) {
-                    this.status = todoStatus;
-                    break;
-                }
-            }
-        }
     }
 }
