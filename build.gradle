@@ -76,3 +76,9 @@ project(':front'){
         compile project(':common')
     }
 }
+project(':batch'){
+    dependencies {
+        compile project(':common')
+
+    }
+}
