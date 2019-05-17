@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="utf-8">
     <title>Popup Demo</title>
@@ -7,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <!--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
 </head>
 <style>
     .badgebox {
@@ -60,97 +60,33 @@
     }
 </style>
 <body onload="Notification.requestPermission();">
-<div class="container">
-    <div style="text-align: center;">
-        <h1>To Do List</h1>
-        <a class="btn icon-btn btn-success" data-target="#layerpop" data-toggle="modal">
-            <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Add</a>
-    </div>
-    <hr>
-    <!-- ADD Layer Popup -->
-    <div class="modal fade" id="layerpop">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" onclick="resetForm('add-pop')">×</button>
-                    <h4 class="modal-title">일정 추가</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="add-pop">
-                        <div class="form-group">
-                            <label for="title">제목</label>
-                            <input type="text" class="form-control" id="title" aria-describedby="emailHelp"
-                                   placeholder="제목을 입력해주세요." max="100" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="content">내용</label>
-                            <textarea class="form-control" id="content" name="password"
-                                      placeholder="내용을 입력해주세요." maxlength="500" required></textarea>
-                        </div>
-                        <hr>
-                        <div class="form-group">
-                            <label for="deadline">마감 일자(Optional)</label>
-                            <input type="datetime-local" class="form-control" value="" id="deadline">
-                        </div>
-                        <div class="modal-footer">
-                            <a onclick="crud.insert()" id="submit" class="btn btn-success"><span
-                                    class="glyphicon glyphicon-plus-sign"></span>
-                                추가</a>
-                        </div>
-                    </form>
-                </div>
-                <!-- Footer -->
-            </div>
-        </div>
-    </div>
+<div style="text-align: center;">
+    <h1>To Do List</h1>
+    <a class="btn icon-btn btn-success" data-target="#layerpop" data-toggle="modal">
+        <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Add</a>
+</div>
 
-    <!-- Edit Layer Popup -->
-    <div class="modal fade" id="edit-layer-pop">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" onclick="resetForm('edit_pop')">×</button>
-                    <h4 class="modal-title">일정 수정</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="edit_pop">
-                        <input type="hidden" id="edit_id" value="">
-                        <div class="form-group">
-                            <label for="title">제목</label>
-                            <input type="text" class="form-control" id="edit_title" aria-describedby="emailHelp"
-                                   placeholder="제목을 입력해주세요." max="100" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="content">내용</label>
-                            <textarea class="form-control" id="edit_content" name="password"
-                                      placeholder="내용을 입력해주세요." maxlength="500" required></textarea>
-                        </div>
-                        <hr>
-                        <div class="form-group">
-                            <label for="deadline">마감 일자(Optional)</label>
-                            <input type="datetime-local" class="form-control" value="" id="edit_deadline">
-                        </div>
-                        <div class="modal-footer">
-                            <a id="edit_submit" class="btn btn-success" onclick="crud.update()">
-                                <span class="glyphicon glyphicon-plus-sign"></span>수정</a>
-                        </div>
-                    </form>
-                </div>
-                <!-- Footer -->
-            </div>
-        </div>
-    </div>
+
+<div class="container">
+    <hr>
+    <!-- SEARCH-->
+    <div th:replace="fragment/search :: search"></div>
+    <hr>
+    <!-- MODAL -->
+    <div th:replace="fragment/modal :: modal"></div>
+
     <!-- 5,제목,내용,~~~-->
     <h1 style="text-align: center;"> 오늘의 To do </h1>
-    <table class="table table-striped table-light vertical-align" style="font-family: Arial;">
+    <table id="myTable" class="table table-striped table-light vertical-align" style="font-family: Arial;">
         <thead>
         <tr>
-            <th>제목</th>
-            <th>내용</th>
-            <th>마감 기간</th>
-            <th>상태</th>
+            <th onclick="sortTable(0)">제목</th>
+            <th onclick="sortTable(1)">내용</th>
+            <th onclick="sortTable(2)">마감 기간</th>
+            <th onclick="sortTable(3)">상태</th>
             <th>수정</th>
             <th>삭제</th>
+            <th>중요도</th>
         </tr>
         </thead>
         <tbody>
@@ -170,7 +106,8 @@
             <!-- 상태 -->
             <div th:if="${todo.status.equals('대기중')}">
                 <th>
-                    <a th:onclick="'crud.finish('+${todo.getId()}+');'" class="btn btn-xs icon-btn btn-success"><span
+                    <a th:onclick="'crud.finish('+${todo.getId()}+');'"
+                       class="btn btn-xs icon-btn btn-success"><span
                             class="glyphicon btn-glyphicon glyphicon-ok img-circle text-success"></span>대기중</a>
                 </th>
                 <th>
@@ -178,7 +115,7 @@
                             class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-primary"></span>수정</a>
                 </th>
             </div>
-            <div th:unless="${todo.status.equals('대기중')}">
+            <div th:if="${todo.status.equals('완료')}">
                 <th>
                     <a class="btn btn-xs icon-btn btn-success" disabled="true"><span
                             class="glyphicon btn-glyphicon glyphicon-ok img-circle text-success"></span>완료</a>
@@ -188,43 +125,72 @@
                             class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-primary"></span>수정</a>
                 </th>
             </div>
-            <!-- 수정 -->
+            <div th:if="${todo.status.equals('마감')}">
+                <th>
+                    <a class="btn btn-xs icon-btn btn-warning" disabled="true" help="삭제를 해주세요"><span
+                            class="glyphicon btn-glyphicon glyphicon-wrench img-circle text-success"></span>마감</a>
+                </th>
+                <th>
+                    <a class="btn btn-xs icon-btn btn-primary" disabled="true"><span
+                            class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-primary"></span>수정</a>
+                </th>
+            </div>
             <!-- 삭제 -->
             <th>
                 <a th:onclick="'crud.delete('+${todo.getId()}+');'" class="btn btn-xs icon-btn btn-danger"><span
                         class="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>삭제</a>
             </th>
+            <th>
+                <span class="fa fa-star checked" th:if="${todo.getPriority()!=0}" th:each="i : ${#numbers.sequence(0,todo.getPriority()-1)}"></span>
             </th>
+
+
         </tr>
         </tbody>
     </table>
-
 </div>
 
-
 <script type="text/javascript">
+    function resetForm(form) {
+        $("#" + form)[0].reset();
+    }
+
     $(document).ready(function () {
-        function notify(number) {
-            if (Notification.permission !== "granted") {
-                alert('알림이 비활성화되었습니다.');
-            } else {
-                var notification = new Notification("마감이 지난 일정이 존재합니다.", {
+        setInterval(function () {
+            $.ajax({
+                url: "http://localhost:8080/search/notice",
+                method: "get",
+                async: true,
+                contentType: "application/json",
+                dataType: 'json',
+                success: [function (response) {
+                    console.log("notice response : " + response.message)
+                    if (response.message == "OVER") {
+                        notify("마감 기간이 지난 항목이 존재합니다.");
+                    }
+                }]
+            })
+        }, 10000);
+
+        function notify(text) {
+            if (Notification.permission == "granted") {
+                var notification = new Notification("To-do 알림", {
                     icon: '/img/penguin.png',
-                    body: '마감이 지난 일정이 존재합니다.:' + number
+                    body: text
                 });
 
                 notification.onclick = function () {
-                    window.location.href = 'http://naver.com';
+                    window.location.href = 'http://localhost:8080/index';
                 }
             }
 
         }
 
-        function resetForm(form) {
-            $("#" + form)[0].reset();
-        }
     });
 </script>
 <script src="/js/crud.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/sort.js"></script>
+<script src="/js/star.js"></script>
 </body>
 </html>

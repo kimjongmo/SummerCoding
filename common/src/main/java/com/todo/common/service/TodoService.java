@@ -5,14 +5,12 @@ import com.todo.common.dto.internal.get.TodoGetResponseDTO;
 import com.todo.common.dto.internal.input.TodoInputRequestDTO;
 import com.todo.common.dto.internal.update.TodoUpdateRequestDTO;
 import com.todo.common.entity.Todo;
-import com.todo.common.error.ValidCustomException;
 import com.todo.common.repo.TodoRepository;
 import com.todo.common.status.TodoStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -48,7 +46,8 @@ public class TodoService {
                 .setTitle(todo.getTitle())
                 .setContent(todo.getContent())
                 .setDeadline(todo.getDeadline() == null ? null : todo.getDeadline().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
-                .setId(todo.getId());
+                .setId(todo.getId())
+                .setPriority(todo.getPriority());
         return new CommonHeader<TodoGetResponseDTO>().setMessage("OK").setData(data);
     }
 
@@ -68,7 +67,6 @@ public class TodoService {
         return new CommonHeader().setMessage("수정되었습니다");
     }
 
-    // TODO: 2019-05-17 CommonHeader용으로 바꾸기
     public CommonHeader delete(Long id) {
         if (!todoRepository.findById(id).isPresent())
             return new CommonHeader().setMessage("존재하지 않은 항목입니다.");

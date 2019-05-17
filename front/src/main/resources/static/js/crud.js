@@ -20,7 +20,9 @@ var crud = {
         var title = $('#edit_title').val();
         var content = $('#edit_content').val();
         var deadline = $('#edit_deadline').val() === "" ? null : $('#edit_deadline').val();
-        var data = {id: id, title: title, content: content, deadline: deadline};
+        var priority = $('#edit_selected-rating').val()===""?0:$('#edit_selected-rating').val();
+        var data = {id: id, title: title, content: content, deadline: deadline,priority:priority};
+        alert(JSON.stringify(data));
         if (window.confirm("수정하시겠습니까?")) {
             $.ajax({
                 url: "http://localhost:8080/todo",
@@ -51,6 +53,9 @@ var crud = {
                         $('#edit_content').val(response.data.content);
                         $('#edit_deadline').val(response.data.deadline);
                         $('#edit_id').val(response.data.id);
+                        $('#edit_selected-rating').empty();
+                        $('#edit_selected-rating').html(response.data.priority);
+                        edit_star_fn(response.data.priority);
                         $('#edit-layer-pop').modal();
                     } else {
                         alert(response);
@@ -79,7 +84,9 @@ var crud = {
         var title = $('#title').val();
         var content = $('#content').val();
         var deadline = $('#deadline').val() === "" ? null : $('#deadline').val();
-        var data = {title: title, content: content, deadline: deadline};
+        var priority = $('#selected-rating').val()===""?0:$('#selected-rating').val();
+        var data = {title: title, content: content, deadline: deadline,priority:priority};
+        alert(JSON.stringify(data));
         if (window.confirm("추가하시겠습니까?") === false)
             return;
         $.ajax({

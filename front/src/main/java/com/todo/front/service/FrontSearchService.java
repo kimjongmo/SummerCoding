@@ -25,7 +25,16 @@ public class FrontSearchService {
     public FrontSearchService(RestTemplateService restTemplateService) {
         this.restTemplateService = restTemplateService;
     }
+    public CommonHeader searchNotified(){
+        URI uri = UriComponentsBuilder.fromHttpUrl(apiServerIp)
+                .path("search/notice")
+                .build()
+                .toUri();
+        ParameterizedTypeReference<CommonHeader> type
+                = new ParameterizedTypeReference<CommonHeader>() {};
 
+        return restTemplateService.exchange(uri,HttpMethod.GET,null,type);
+    }
     public CommonHeader<SearchResponseDTO> search(SearchRequestDTO dto) {
         log.info("[FrontSearchService] dto = {}",dto);
 

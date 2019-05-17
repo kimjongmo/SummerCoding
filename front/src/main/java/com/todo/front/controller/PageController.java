@@ -21,8 +21,8 @@ public class PageController {
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public ModelAndView index() {
-        CommonHeader<SearchResponseDTO> result = frontSearchService.search(new SearchRequestDTO());
+    public ModelAndView index(SearchRequestDTO dto) {
+        CommonHeader<SearchResponseDTO> result = frontSearchService.search(dto);
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("todos",result.getData());
         return modelAndView;

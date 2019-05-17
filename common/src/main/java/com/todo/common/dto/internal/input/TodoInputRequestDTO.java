@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,11 +30,14 @@ public class TodoInputRequestDTO {
     @Pattern(regexp = "^([0-9]{4}+-[0-9]{2}+-[0-9]{2}+T[0-9]{2}+:[0-9]{2})",message = "올바르지 않은 형식입니다.")
     private String deadline;
 
+    private int priority;
+
     public Todo toEntity(){
         Todo todo = new Todo()
                 .setTitle(this.title)
                 .setContent(this.content)
                 .setStatus(TodoStatus.WAITING)
+                .setPriority(this.priority)
                 ;
         if(!Strings.isEmpty(deadline))
             todo.setDeadline(LocalDateTime.parse(this.deadline, DateTimeFormatter.ISO_LOCAL_DATE_TIME));

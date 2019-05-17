@@ -38,5 +38,8 @@ public class SearchResponseDTO implements Serializable {
 
         @JsonProperty("status")
         private String status;
+
+        @JsonProperty("priority")
+        private Integer priority;
     }
 }

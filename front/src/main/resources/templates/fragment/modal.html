@@ -1,0 +1,121 @@
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+<div th:fragment="modal">
+    <div class="modal fade" id="layerpop">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="resetForm('add-pop')">×
+                    </button>
+                    <h4 class="modal-title">일정 추가</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="add-pop">
+                        <div class="form-group">
+                            <label for="title">제목</label>
+                            <input type="text" class="form-control" id="title" aria-describedby="emailHelp"
+                                   placeholder="제목을 입력해주세요." max="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="content">내용</label>
+                            <textarea class="form-control" id="content" name="password"
+                                      placeholder="내용을 입력해주세요." maxlength="500" required></textarea>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="deadline">마감 일자(Optional)</label>
+                            <input type="datetime-local" class="form-control" value="" id="deadline">
+                        </div>
+                        <!-- Star -->
+                        <div class="form-group" id="rating-ability-wrapper">
+                            <h2 class="bold" style="">
+                               중요도 : <span id="selected-rating">0</span><small> / 5</small>
+                            </h2>
+                            <button onclick="add_star_fn(1);" type="button" class="btnrating btn btn-default btn-lg" data-attr="1" id="rating-star-1">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button onclick="add_star_fn(2);"type="button" class="btnrating btn btn-default btn-lg" data-attr="2" id="rating-star-2">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button onclick="add_star_fn(3);"type="button" class="btnrating btn btn-default btn-lg" data-attr="3" id="rating-star-3">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button onclick="add_star_fn(4);"type="button" class="btnrating btn btn-default btn-lg" data-attr="4" id="rating-star-4">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button onclick="add_star_fn(5);"type="button" class="btnrating btn btn-default btn-lg" data-attr="5" id="rating-star-5">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="modal-footer">
+                            <a onclick="crud.insert()" id="submit" class="btn btn-success"><span
+                                    class="glyphicon glyphicon-plus-sign"></span>
+                                추가</a>
+                        </div>
+                    </form>
+                </div>
+                <!-- Footer -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Layer Popup -->
+    <div class="modal fade" id="edit-layer-pop">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="resetForm('edit_pop')">×
+                    </button>
+                    <h4 class="modal-title">일정 수정</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="edit_pop">
+                        <input type="hidden" id="edit_id" value="">
+                        <div class="form-group">
+                            <label for="title">제목</label>
+                            <input type="text" class="form-control" id="edit_title" aria-describedby="emailHelp"
+                                   placeholder="제목을 입력해주세요." max="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="content">내용</label>
+                            <textarea class="form-control" id="edit_content" name="password"
+                                      placeholder="내용을 입력해주세요." maxlength="500" required></textarea>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="deadline">마감 일자(Optional)</label>
+                            <input type="datetime-local" class="form-control" value="" id="edit_deadline">
+                        </div>
+                        <div class="form-group" id="eidt-rating-ability-wrapper">
+                            <h2 class="bold" style="">
+                                중요도 : <span id="edit_selected-rating">0</span><small> / 5</small>
+                            </h2>
+                            <button onclick="edit_star_fn(1);" type="button" class="btnrating btn btn-default btn-lg" data-attr="1" id="edit_rating-star-1">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button onclick="edit_star_fn(2);"type="button" class="btnrating btn btn-default btn-lg" data-attr="2" id="edit_rating-star-2">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button onclick="edit_star_fn(3);"type="button" class="btnrating btn btn-default btn-lg" data-attr="3" id="edit_rating-star-3">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button onclick="edit_star_fn(4);"type="button" class="btnrating btn btn-default btn-lg" data-attr="4" id="edit_rating-star-4">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button onclick="edit_star_fn(5);"type="button" class="btnrating btn btn-default btn-lg" data-attr="5" id="edit_rating-star-5">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="modal-footer">
+                            <a id="edit_submit" class="btn btn-success" onclick="crud.update()">
+                                <span class="glyphicon glyphicon-plus-sign"></span>수정</a>
+                        </div>
+                    </form>
+                </div>
+                <!-- Footer -->
+            </div>
+        </div>
+    </div>
+</div>
+</html>

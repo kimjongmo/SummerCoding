@@ -24,4 +24,7 @@ public class TodoGetResponseDTO implements Serializable {
 
     @JsonProperty("deadline")
     private String deadline;
+
+    @JsonProperty("priority")
+    private int priority;
 }

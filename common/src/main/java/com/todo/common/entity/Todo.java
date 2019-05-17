@@ -25,6 +25,7 @@ public class Todo extends BaseEntity {
     private LocalDateTime deadline;
     @Enumerated(EnumType.STRING)
     private TodoStatus status;
+    private int priority;
 
     public void update(TodoUpdateRequestDTO dto) {
         if (!Strings.isEmpty(dto.getTitle()))
@@ -34,7 +35,8 @@ public class Todo extends BaseEntity {
             this.content = dto.getContent();
 
         /* 데드라인 설정 */
-        if (!Strings.isEmpty(dto.getDeadline()))
-            this.deadline = LocalDateTime.parse(dto.getDeadline(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        this.deadline = dto.getDeadline()==null?null:LocalDateTime.parse(dto.getDeadline(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+
+        this.priority = dto.getPriority();
     }
 }

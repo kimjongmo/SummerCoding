@@ -1,0 +1,54 @@
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+
+<div class="row" th:fragment="search">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group ">
+                            <span class="label label-default" for="search_title">제 목</span>
+                            <input id="search_title" type="text" class="form-control" placeholder="제목 검색...">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group ">
+                            <span class="label label-default" for="search_content">내 용</span>
+                            <input type="text" id="search_content" class="form-control" placeholder="내용 검색...">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group ">
+                            <span class="label label-default" for="search_after">검색 시작 날짜</span>
+                            <input class="form-control" id="search_after" type="date">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group ">
+                            <span class="label label-default" for="search_before">검색 끝 날짜</span>
+                            <input class="form-control" id="search_before" type="date">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group ">
+                            <span class="label label-default" for="search_status">상 태</span>
+                            <select id="search_status" class="form-control">
+                                <option selected value="">상태 선택</option>
+                                <option>대기중</option>
+                                <option>완료</option>
+                                <option>마감</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <a id="search_btn" class="btn btn-lg btn-warning"><span
+                                class="glyphicon glyphicon-search"></span>Search</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

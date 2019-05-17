@@ -26,8 +26,13 @@ public class SearchController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public CommonHeader<SearchResponseDTO> search(@Valid CommonHeader<SearchRequestDTO> header){
-        log.info("[SearchController] searchDTO = {}",header.getData());
-        return searchService.search(header.getData()==null?new SearchRequestDTO():header.getData());
+    public CommonHeader<SearchResponseDTO> search(@Valid SearchRequestDTO dto){
+        log.info("[SearchController] searchDTO = {}",dto);
+        return searchService.search(dto==null?new SearchRequestDTO():dto);
+    }
+
+    @RequestMapping(value = "/notice",method = RequestMethod.GET)
+    public CommonHeader search(){
+        return searchService.notice();
     }
 }

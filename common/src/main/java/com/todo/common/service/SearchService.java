@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,7 +52,9 @@ public class SearchService {
                             .setId(todo.getId())
                             .setContent(todo.getContent())
                             .setTitle(todo.getTitle())
-                            .setStatus(todo.getStatus().getMessage());
+                            .setStatus(todo.getStatus().getMessage())
+                            .setPriority(todo.getPriority())
+                            ;
                     if(todo.getDeadline()!=null){
                         res.setDeadline(todo.getDeadline().format(DateTimeFormatter.ofPattern("yy년 MM월 dd일 HH시 mm분")));
                     }else{
@@ -68,5 +69,12 @@ public class SearchService {
         return new CommonHeader<SearchResponseDTO>().setMessage("검색 완료").setData(result);
     }
 
-
+    public CommonHeader notice(){
+        List<Todo> list = todoRepository.findAllByDeadlineBeforeAndStatus(LocalDateTime.now(),TodoStatus.OVER);
+        log.info("notice.size = {}",list.size());
+        if(list.size()==0){
+            return new CommonHeader().setMessage("NOT_OVER");
+        }else
+            return new CommonHeader().setMessage("OVER");
+    }
 }
