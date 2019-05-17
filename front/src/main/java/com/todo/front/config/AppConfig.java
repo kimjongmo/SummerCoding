@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EnableJpaAuditing
 @ComponentScan(basePackages = {"com.todo.common"})
-@EntityScan(basePackages = {"com.todo.common.entity"})
+@EntityScan(basePackages = {"com.todo.common.entity","com.todo.front"})
 @EnableJpaRepositories(basePackages = {"com.todo.common.repo"})
 public class AppConfig {
 }
