@@ -2,7 +2,7 @@ var crud = {
     delete: function(id) {
         if (window.confirm("삭제하시겠습니까?")) {
             $.ajax({
-                url: "http://localhost:8080/todo/" + id,
+                url: window.location.origin+"/todo/" + id,
                 method: "delete",
                 async: true,
                 contentType: "application/json",
@@ -10,7 +10,7 @@ var crud = {
                 dataType: 'text',
                 success: [function (response) {
                     window.alert("알림 :" + response);
-                    document.location.href = "http://localhost:8080/index";
+                    document.location.href = window.location.origin+"/index";
                 }]
             })
         }
@@ -25,14 +25,14 @@ var crud = {
         alert(JSON.stringify(data));
         if (window.confirm("수정하시겠습니까?")) {
             $.ajax({
-                url: "http://localhost:8080/todo",
+                url: window.location.origin+"/todo",
                 method: "put",
                 async: true,
                 contentType: 'application/json',
                 data: JSON.stringify(data),
                 dataType: 'text',
                 success: [function (response) {
-                    document.location.href = "http://localhost:8080/index";
+                    document.location.href = window.location.origin+"/index";
                 }
                 ]
             });
@@ -41,7 +41,7 @@ var crud = {
     get: function(id) {
         if (window.confirm("수정하시겠습니까?")) {
             $.ajax({
-                url: "http://localhost:8080/todo/" + id,
+                url: window.location.origin+"/todo/" + id,
                 method: "get",
                 async: true,
                 contentType: "application/json",
@@ -66,7 +66,7 @@ var crud = {
     finish: function(id) {
         if (window.confirm("완료하시겠습니까?")) {
             $.ajax({
-                url: "http://localhost:8080/todo/finish",
+                url: window.location.origin+"/todo/finish",
                 method: "post",
                 async: true,
                 contentType: "application/json",
@@ -74,7 +74,7 @@ var crud = {
                 dataType: 'text',
                 success: [function (response) {
                     window.alert("알림 :" + response);
-                    document.location.href = "http://localhost:8080/index";
+                    document.location.href = window.location.origin+"/index";
                 }]
             })
         }
@@ -89,7 +89,7 @@ var crud = {
         if (window.confirm("추가하시겠습니까?") === false)
             return;
         $.ajax({
-            url: "http://localhost:8080/todo",
+            url: window.location.origin+"/todo",
             method: "post",
             async: true,
             contentType: 'application/json',
@@ -97,7 +97,7 @@ var crud = {
             dataType: 'text',
             success: [function (response) {
                 window.alert("알림 :" + response);
-                document.location.href = "http://localhost:8080/index";
+                document.location.href = window.location.origin+"/index";
             }
             ]
         });

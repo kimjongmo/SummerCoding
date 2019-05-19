@@ -16,6 +16,6 @@ $(document).ready(function () {
             query += "&beforeDate=" + beforeDate;
         if (status != null)
             query += "&status=" + status;
-        window.location.href = "http://localhost:8080/index?" + query;
+        window.location.href = window.location.origin+"/index?" + query;
     });
 });

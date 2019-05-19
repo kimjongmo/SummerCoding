@@ -12,7 +12,7 @@
 </head>
 <body onload="Notification.requestPermission();">
 <div style="text-align: center;">
-    <h1>To Do List</h1>
+    <h1><a onclick="home();">To Do List</a></h1>
 </div>
 
 <div class="container">
@@ -102,6 +102,9 @@
 </div>
 
 <script type="text/javascript">
+    function home() {
+        window.location.href= window.location.origin+"/index";
+    }
     function resetForm(form) {
         $("#" + form)[0].reset();
         add_star_fn(0);
@@ -110,7 +113,7 @@
     $(document).ready(function () {
         setInterval(function () {
             $.ajax({
-                url: "http://localhost:8080/search/notice",
+                url: window.location.origin+"/search/notice",
                 method: "get",
                 async: true,
                 contentType: "application/json",
@@ -132,7 +135,7 @@
                 });
 
                 notification.onclick = function () {
-                    window.location.href = 'http://localhost:8080/index';
+                    window.location.href = window.location.origin+"/index";
                 }
             }
 
