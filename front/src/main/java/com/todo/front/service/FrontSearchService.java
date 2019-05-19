@@ -1,6 +1,7 @@
 package com.todo.front.service;
 
 import com.todo.common.dto.CommonHeader;
+import com.todo.common.dto.internal.notice.NoticeResponseDTO;
 import com.todo.common.dto.internal.search.SearchRequestDTO;
 import com.todo.common.dto.internal.search.SearchResponseDTO;
 import com.todo.common.service.RestTemplateService;
@@ -26,21 +27,21 @@ public class FrontSearchService {
     public FrontSearchService(RestTemplateService restTemplateService) {
         this.restTemplateService = restTemplateService;
     }
-    public CommonHeader searchNotified(){
+    public CommonHeader<NoticeResponseDTO> searchNotified(){
         URI uri = UriComponentsBuilder.fromHttpUrl(apiServerIp)
                 .path("search/notice")
                 .build()
                 .toUri();
-        ParameterizedTypeReference<CommonHeader> type
-                = new ParameterizedTypeReference<CommonHeader>() {};
+        ParameterizedTypeReference<CommonHeader<NoticeResponseDTO>> type
+                = new ParameterizedTypeReference<CommonHeader<NoticeResponseDTO>>() {};
         try {
             return restTemplateService.exchange(uri, HttpMethod.GET, null, type);
         }catch (RestClientException restClientException) {
             log.error("[FrontSearchService] searchNotified() : RestClientException : {}",restClientException);
-            return new CommonHeader().setMessage("오류가 발생했습니다.");
+            return new CommonHeader().setMessage("ERROR");
         } catch (Exception e) {
             log.error("[FrontSearchService] searchNotified() : Exception : {}", e);
-            return new CommonHeader().setMessage("오류가 발생했습니다.");
+            return new CommonHeader().setMessage("ERROR");
         }
     }
     public CommonHeader<SearchResponseDTO> search(SearchRequestDTO dto) {

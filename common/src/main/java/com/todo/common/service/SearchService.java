@@ -1,6 +1,7 @@
 package com.todo.common.service;
 
 import com.todo.common.dto.CommonHeader;
+import com.todo.common.dto.internal.notice.NoticeResponseDTO;
 import com.todo.common.dto.internal.search.SearchRequestDTO;
 import com.todo.common.dto.internal.search.SearchResponseDTO;
 import com.todo.common.entity.Todo;
@@ -53,11 +54,10 @@ public class SearchService {
                             .setContent(todo.getContent())
                             .setTitle(todo.getTitle())
                             .setStatus(todo.getStatus().getMessage())
-                            .setPriority(todo.getPriority())
-                            ;
-                    if(todo.getDeadline()!=null){
+                            .setPriority(todo.getPriority());
+                    if (todo.getDeadline() != null) {
                         res.setDeadline(todo.getDeadline().format(DateTimeFormatter.ofPattern("yy년 MM월 dd일 HH시 mm분")));
-                    }else{
+                    } else {
                         res.setDeadline("마감 기한 없음");
                     }
                     return res;
@@ -69,12 +69,11 @@ public class SearchService {
         return new CommonHeader<SearchResponseDTO>().setMessage("검색 완료").setData(result);
     }
 
-    public CommonHeader notice(){
-        List<Todo> list = todoRepository.findAllByDeadlineBeforeAndStatus(LocalDateTime.now(),TodoStatus.OVER);
-        log.info("notice.size = {}",list.size());
-        if(list.size()==0){
-            return new CommonHeader().setMessage("NOT_OVER");
-        }else
-            return new CommonHeader().setMessage("OVER");
+    public CommonHeader<NoticeResponseDTO> notice() {
+        List<Todo> list = todoRepository.findAllByDeadlineBeforeAndStatus(LocalDateTime.now(), TodoStatus.OVER);
+        log.debug("notice.size = {}", list.size());
+        NoticeResponseDTO data = new NoticeResponseDTO();
+        data.setCount(list.size());
+        return new CommonHeader().setMessage("OK").setData(data);
     }
 }

@@ -6,6 +6,7 @@
     <title>Popup Demo</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="/css/index.css?v=1" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -25,6 +26,10 @@
 
     <!-- 5,제목,내용,~~~-->
     <h1 style="text-align: center;"> To do </h1>
+    <div style="font-size: 2em;">
+        <a class="fas fa-globe-asia"></a>
+        <span id="over-count" style="position:absolute; background-color: red;" class="badge">0</span>
+    </div>
     <table id="myTable" class="table table-striped table-light vertical-align" style="font-family: Arial;">
         <thead>
         <tr>
@@ -120,26 +125,32 @@
                 dataType: 'json',
                 success: [function (response) {
                     console.log("notice response : " + response.message)
-                    if (response.message == "OVER") {
-                        notify("마감 기간이 지난 항목이 존재합니다.");
+                    if (response.message == "OK") {
+                        $('#over-count').empty();
+                        $('#over-count').html(response.data.count);
+                    }else {
+                        console.log("notice api ERROR")
                     }
                 }]
             })
-        }, 5 * 60000); //5분
+        }, 60 * 1000); //60초
+        $('.fa-globe-asia').click(function () {
+            var date = new Date();
 
-        function notify(text) {
-            if (Notification.permission == "granted") {
-                var notification = new Notification("To-do 알림", {
-                    icon: '/img/penguin.png',
-                    body: text
-                });
-
-                notification.onclick = function () {
-                    window.location.href = window.location.origin+"/index";
-                }
-            }
-
-        }
+            window.location.href = window.location.origin+"/index?beforeDate="+date.toISOString().substring(0,16)+"&status=마감";
+        })
+        // function notify(text) {
+        //     if (Notification.permission == "granted") {
+        //         var notification = new Notification("To-do 알림", {
+        //             icon: '/img/penguin.png',
+        //             body: text
+        //         });
+        //
+        //         notification.onclick = function () {
+        //             window.location.href = window.location.origin+"/index";
+        //         }
+        //     }
+        // }
 
     });
 </script>

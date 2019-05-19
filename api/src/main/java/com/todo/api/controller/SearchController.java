@@ -1,6 +1,7 @@
 package com.todo.api.controller;
 
 import com.todo.common.dto.CommonHeader;
+import com.todo.common.dto.internal.notice.NoticeResponseDTO;
 import com.todo.common.dto.internal.search.SearchRequestDTO;
 import com.todo.common.dto.internal.search.SearchResponseDTO;
 import com.todo.common.entity.Todo;
@@ -32,7 +33,7 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/notice",method = RequestMethod.GET)
-    public CommonHeader search(){
+    public CommonHeader<NoticeResponseDTO> search(){
         return searchService.notice();
     }
 }

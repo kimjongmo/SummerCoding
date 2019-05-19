@@ -1,6 +1,7 @@
 package com.todo.front.controller;
 
 import com.todo.common.dto.CommonHeader;
+import com.todo.common.dto.internal.notice.NoticeResponseDTO;
 import com.todo.front.service.FrontSearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/notice",method = RequestMethod.GET)
-    public CommonHeader notified(){
+    public CommonHeader<NoticeResponseDTO> notified(){
         return frontSearchService.searchNotified();
     }
 }
