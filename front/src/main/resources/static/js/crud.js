@@ -30,10 +30,20 @@ var crud = {
                 async: true,
                 contentType: 'application/json',
                 data: JSON.stringify(data),
-                dataType: 'text',
                 success: [function (response) {
                     document.location.href = window.location.origin+"/index";
                 }
+                ],
+                error : [
+                    function (response) {
+                        var errors = response.responseJSON.errors
+                        for(var i=0;i<errors.length;i++){
+                            errorFieldName = errors[i].field;
+                            console.log("field="+errorFieldName)
+                            $('#edit_'+errorFieldName).siblings('.error-message').remove();
+                            $('#edit_'+errorFieldName).after('<span class="error-message text-muted text-small text-danger">'+errors[i].defaultMessage+'</span>');
+                        }
+                    }
                 ]
             });
         }
@@ -85,7 +95,6 @@ var crud = {
         var deadline = $('#deadline').val() === "" ? null : $('#deadline').val();
         var priority = $('#selected-rating').val()===""?0:$('#selected-rating').val();
         var data = {title: title, content: content, deadline: deadline,priority:priority};
-        alert(JSON.stringify(data));
         if (window.confirm("추가하시겠습니까?") === false)
             return;
         $.ajax({
@@ -94,11 +103,22 @@ var crud = {
             async: true,
             contentType: 'application/json',
             data: JSON.stringify(data),
-            dataType: 'text',
             success: [function (response) {
                 window.alert("알림 :" + response);
                 document.location.href = window.location.origin+"/index";
             }
+            ],
+            error : [
+                function (response) {
+                    var errors = response.responseJSON.errors
+                    for(var i=0;i<errors.length;i++){
+                        errorFieldName = errors[i].field;
+                        console.log("field="+errorFieldName)
+                        $('#'+errorFieldName).siblings('.error-message').remove();
+                        $('#'+errorFieldName).after('<span class="error-message text-muted text-small text-danger">'+errors[i].defaultMessage+'</span>');
+
+                    }
+                }
             ]
         });
     }

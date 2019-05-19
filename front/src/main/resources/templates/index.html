@@ -29,7 +29,7 @@
         <thead>
         <tr>
             <th onclick="sortTable(0)">제목</th>
-            <th onclick="sortTable(1)">내용</th>
+            <th style="width:400px;" onclick="sortTable(1)">내용</th>
             <th onclick="sortTable(2)">마감 기간</th>
             <th onclick="sortTable(3)">상태</th>
             <th>수정</th>
@@ -49,7 +49,7 @@
             <th th:text="${todo.content}"></th>
 
             <!-- 마감 기간-->
-            <th th:text="${todo.deadline}"></th>
+            <th  th:text="${todo.deadline}"></th>
 
             <!-- 상태 -->
             <div th:if="${todo.status.equals('대기중')}">

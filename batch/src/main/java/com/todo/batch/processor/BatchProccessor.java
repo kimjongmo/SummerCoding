@@ -5,7 +5,6 @@ import com.todo.common.repo.TodoRepository;
 import com.todo.common.status.TodoStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +17,6 @@ public class BatchProccessor {
 
     @Autowired
     private TodoRepository todoRepository;
-
-
 
     @Scheduled(fixedRate = 15 * 60000)
     public void handle() {

@@ -19,12 +19,12 @@ import java.time.format.DateTimeFormatter;
 @ToString
 public class TodoInputRequestDTO {
     @NotEmpty(message = "제목을 입력해주세요")
-    @Length(max = 100,message = "제목은 최대 100자까지만 가능합니다.")
+    @Length(max = 10,message = "제목은 최대 10자까지만 가능합니다.")
     private String title;
 
     @NotEmpty(message = "내용을 입력해주세요.")
     @NotBlank(message = "내용을 입력해주세요.")
-    @Length(max = 300,message = "본문은 최대 300자까지만 가능합니다.")
+    @Length(max = 50,message = "본문은 최대 50자까지만 가능합니다.")
     private String content;
 
     @Pattern(regexp = "^([0-9]{4}+-[0-9]{2}+-[0-9]{2}+T[0-9]{2}+:[0-9]{2})",message = "올바르지 않은 형식입니다.")
