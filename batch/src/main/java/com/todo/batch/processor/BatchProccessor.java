@@ -18,7 +18,7 @@ public class BatchProccessor {
     @Autowired
     private TodoRepository todoRepository;
 
-    @Scheduled(fixedRate = 15 * 60000)
+    @Scheduled(fixedRate = 60000)
     public void handle() {
         LocalDateTime now = LocalDateTime.now();
         TodoStatus status = TodoStatus.WAITING;
