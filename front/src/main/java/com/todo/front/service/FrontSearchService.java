@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -32,8 +33,15 @@ public class FrontSearchService {
                 .toUri();
         ParameterizedTypeReference<CommonHeader> type
                 = new ParameterizedTypeReference<CommonHeader>() {};
-
-        return restTemplateService.exchange(uri,HttpMethod.GET,null,type);
+        try {
+            return restTemplateService.exchange(uri, HttpMethod.GET, null, type);
+        }catch (RestClientException restClientException) {
+            log.error("[FrontSearchService] searchNotified() : RestClientException : {}",restClientException);
+            return new CommonHeader().setMessage("오류가 발생했습니다.");
+        } catch (Exception e) {
+            log.error("[FrontSearchService] searchNotified() : Exception : {}", e);
+            return new CommonHeader().setMessage("오류가 발생했습니다.");
+        }
     }
     public CommonHeader<SearchResponseDTO> search(SearchRequestDTO dto) {
         log.info("[FrontSearchService] dto = {}",dto);
@@ -51,8 +59,15 @@ public class FrontSearchService {
         ParameterizedTypeReference<CommonHeader<SearchResponseDTO>> type
                 = new ParameterizedTypeReference<CommonHeader<SearchResponseDTO>>() {
         };
-
-        return restTemplateService.exchange(uri, HttpMethod.GET,null,type);
+        try {
+            return restTemplateService.exchange(uri, HttpMethod.GET, null, type);
+        }catch (RestClientException restClientException) {
+            log.error("[FrontSearchService] search({}) : RestClientException : {}", dto, restClientException);
+            return new CommonHeader().setMessage("오류가 발생했습니다.");
+        } catch (Exception e) {
+            log.error("[FrontSearchService] search({}) : Exception : {}", dto, e);
+            return new CommonHeader().setMessage("오류가 발생했습니다.");
+        }
     }
 
 }

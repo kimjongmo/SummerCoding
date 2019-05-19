@@ -32,7 +32,6 @@ var crud = {
                 data: JSON.stringify(data),
                 dataType: 'text',
                 success: [function (response) {
-                    window.alert("알림 :" + response);
                     document.location.href = "http://localhost:8080/index";
                 }
                 ]
